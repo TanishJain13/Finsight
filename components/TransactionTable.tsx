@@ -8,7 +8,7 @@ interface TransactionTableProps {
   transactions: Transaction[];
 }
 
-type SortKey = 'date' | 'payee' | 'category' | 'debit' | 'credit';
+type SortKey = 'date' | 'payee' | 'description' | 'category' | 'debit' | 'credit';
 type SortDir = 'asc' | 'desc';
 
 const PAGE_SIZE = 20;
@@ -21,7 +21,7 @@ export default function TransactionTable({ transactions }: TransactionTableProps
   const [page, setPage] = useState(0);
 
   const categories = useMemo(() => {
-    const cats = [...new Set(transactions.map(t => t.category))].sort();
+    const cats = Array.from(new Set(transactions.map(t => t.category))).sort();
     return ['all', ...cats];
   }, [transactions]);
 
@@ -111,7 +111,7 @@ export default function TransactionTable({ transactions }: TransactionTableProps
               {[
                 { key: 'date', label: 'Date', cls: 'w-28' },
                 { key: 'payee', label: 'Payee', cls: 'min-w-[140px]' },
-                { key: null, label: 'Description', cls: 'min-w-[200px]' },
+                { key: 'description' as SortKey, label: 'Description', cls: 'min-w-[200px]' },
                 { key: 'category', label: 'Category', cls: 'w-36' },
                 { key: 'debit', label: 'Debit', cls: 'w-28 text-right' },
                 { key: 'credit', label: 'Credit', cls: 'w-28 text-right' },

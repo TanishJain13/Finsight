@@ -29,7 +29,7 @@ export function analyzeTransactions(transactions: Transaction[]): Analytics {
     .map(([key, data]) => {
       const [year, month] = key.split('-');
       return {
-        month: `${MONTH_NAMES[parseInt(month) - 1]} '${year.slice(2)}`,
+        month: `${MONTH_NAMES[parseInt(month, 10) - 1]} '${year.slice(2)}`,
         income: Math.round(data.income),
         expenses: Math.round(data.expenses),
         savings: Math.round(data.income - data.expenses),
